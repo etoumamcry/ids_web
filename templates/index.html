@@ -2,33 +2,37 @@
 {% block content %}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 style="font-size: 1.8rem;">Tableau de Bord - IDS</h1>
-    <span class="badge bg-success px-3 py-2">● Système Actif</span>
+    <h1>Tableau de Bord</h1>
+    <span class="badge bg-success px-4 py-2 fs-6">● Système Actif en Temps Réel</span>
 </div>
 
-<div class="row g-3 mb-5">
+<div class="row g-4 mb-5">
     <div class="col-md-3">
-        <div class="card p-3 text-center text-white" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">
-            <h2 class="mb-1">{{ critical }}</h2>
-            <p class="mb-0 small">Critiques</p>
+        <div class="card p-4 text-center text-white" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">
+            <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+            <h2 class="mb-0">{{ critical }}</h2>
+            <p class="mb-0">Critiques</p>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card p-3 text-center text-white" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-            <h2 class="mb-1">{{ high }}</h2>
-            <p class="mb-0 small">Hautes</p>
+        <div class="card p-4 text-center text-white" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+            <i class="fas fa-triangle-exclamation fa-2x mb-3"></i>
+            <h2 class="mb-0">{{ high }}</h2>
+            <p class="mb-0">Hautes</p>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card p-3 text-center">
-            <h2 class="mb-1 text-info">{{ total_alerts }}</h2>
-            <p class="mb-0 small">Total Alertes</p>
+        <div class="card p-4 text-center">
+            <i class="fas fa-bell fa-2x mb-3 text-info"></i>
+            <h2 class="mb-0">{{ total_alerts }}</h2>
+            <p class="mb-0">Total Alertes</p>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card p-3 text-center">
-            <h2 class="mb-1 text-success">{{ events|length }}</h2>
-            <p class="mb-0 small">Événements</p>
+        <div class="card p-4 text-center">
+            <i class="fas fa-network-wired fa-2x mb-3 text-success"></i>
+            <h2 class="mb-0">{{ events|length }}</h2>
+            <p class="mb-0">Événements</p>
         </div>
     </div>
 </div>
@@ -37,7 +41,7 @@
 <div class="card">
     <div class="table-responsive">
         <table class="table table-hover mb-0">
-            <thead>
+            <thead class="table-dark">
                 <tr>
                     <th>Date</th>
                     <th>Source IP</th>
@@ -48,20 +52,15 @@
             <tbody>
             {% for e in events %}
                 <tr>
-                    <td class="small">{{ e.timestamp.strftime('%d/%m %H:%M') }}</td>
-                    <td><code>{{ e.source_ip }}</code></td>
+                    <td>{{ e.timestamp.strftime('%d/%m %H:%M') }}</td>
+                    <td><code class="text-light">{{ e.source_ip }}</code></td>
                     <td><span class="badge bg-primary">{{ e.port }}</span></td>
-                    <td class="small text-muted">{{ e.payload[:65] | default('—') }}</td>
+                    <td class="text-muted small">{{ e.payload[:70] | default('—') }}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-</div>
-
-<div class="mt-4">
-    <a href="/create_event" class="btn btn-primary me-2">Créer un événement manuel</a>
-    <a href="/simulate" class="btn btn-outline-light">Simuler du trafic réseau</a>
 </div>
 
 {% endblock %}
