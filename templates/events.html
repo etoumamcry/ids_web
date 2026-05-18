@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Tous les Événements</h1>
+<table class="table table-striped">
+    <thead><tr><th>Date</th><th>Source IP</th><th>Port</th><th>Protocole</th><th>Payload</th><th>Type</th></tr></thead>
+    <tbody>
+    {% for e in events %}
+        <tr>
+            <td>{{ e.timestamp.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+            <td>{{ e.source_ip }}</td>
+            <td>{{ e.port }}</td>
+            <td>{{ e.protocol }}</td>
+            <td>{{ e.payload[:100] | default('—') }}</td>
+            <td>{{ e.event_type }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

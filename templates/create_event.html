@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Création Manuelle d'Événement</h1>
+<form method="POST">
+    <div class="mb-3">
+        <label>Source IP</label>
+        <input type="text" name="source_ip" class="form-control" value="10.0.0.45" required>
+    </div>
+    <div class="mb-3">
+        <label>Port</label>
+        <input type="number" name="port" class="form-control" value="445" required>
+    </div>
+    <div class="mb-3">
+        <label>Payload / Données</label>
+        <textarea name="payload" class="form-control" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Créer et Analyser</button>
+</form>
+{% endblock %}

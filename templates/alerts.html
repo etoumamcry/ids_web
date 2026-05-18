@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 style="font-size: 1.75rem;">🚨 Alertes de Sécurité</h1>
+    <span class="badge bg-danger px-3 py-2">Total : {{ alerts|length }}</span>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Message</th>
+                    <th>Sévérité</th>
+                    <th>Statut</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for alert in alerts %}
+                <tr class="{{ 'table-danger' if alert.severity == 'critical' else 'table-warning' if alert.severity == 'high' else '' }}">
+                    <td class="small">{{ alert.timestamp.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>{{ alert.message }}</td>
+                    <td>
+                        <span class="badge bg-{{ 'danger' if alert.severity=='critical' else 'warning' if alert.severity=='high' else 'info' }}">
+                            {{ alert.severity.upper() }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if alert.acknowledged %}
+                            <span class="badge bg-success">Acquittée</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Non lue</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not alert.acknowledged %}
+                            <a href="/ack_alert/{{ alert.id }}" class="btn btn-sm btn-success">Acquitter</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

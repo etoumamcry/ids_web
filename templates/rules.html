@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Gestion de la Politique de Sécurité</h1>
+
+<h4>Ajouter une nouvelle règle</h4>
+<form method="POST" action="/add_rule" class="mb-5">
+    <div class="row">
+        <div class="col-md-3"><input type="text" name="name" class="form-control" placeholder="Nom de la règle" required></div>
+        <div class="col-md-4"><input type="text" name="description" class="form-control" placeholder="Description"></div>
+        <div class="col-md-3"><input type="text" name="condition" class="form-control" placeholder="port==445 ou keyword=sql" required></div>
+        <div class="col-md-2">
+            <select name="severity" class="form-select">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high" selected>High</option>
+                <option value="critical">Critical</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Ajouter la règle</button>
+</form>
+
+<h4>Règles existantes</h4>
+<table class="table table-striped">
+    <thead><tr><th>Nom</th><th>Description</th><th>Condition</th><th>Sévérité</th><th>Statut</th><th>Action</th></tr></thead>
+    <tbody>
+    {% for rule in rules %}
+        <tr>
+            <td>{{ rule.name }}</td>
+            <td>{{ rule.description }}</td>
+            <td><code>{{ rule.condition }}</code></td>
+            <td><span class="badge bg-{{ 'danger' if rule.severity=='critical' else 'warning' if rule.severity=='high' else 'info' }}">{{ rule.severity }}</span></td>
+            <td>{{ '✅ Actif' if rule.active else '❌ Désactivé' }}</td>
+            <td><a href="/toggle_rule/{{ rule.id }}" class="btn btn-sm btn-secondary">Activer/Désactiver</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

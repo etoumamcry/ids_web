@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 style="font-size: 1.8rem;">Tableau de Bord - IDS</h1>
+    <span class="badge bg-success px-3 py-2">● Système Actif</span>
+</div>
+
+<div class="row g-3 mb-5">
+    <div class="col-md-3">
+        <div class="card p-3 text-center text-white" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">
+            <h2 class="mb-1">{{ critical }}</h2>
+            <p class="mb-0 small">Critiques</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 text-center text-white" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+            <h2 class="mb-1">{{ high }}</h2>
+            <p class="mb-0 small">Hautes</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 text-center">
+            <h2 class="mb-1 text-info">{{ total_alerts }}</h2>
+            <p class="mb-0 small">Total Alertes</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 text-center">
+            <h2 class="mb-1 text-success">{{ events|length }}</h2>
+            <p class="mb-0 small">Événements</p>
+        </div>
+    </div>
+</div>
+
+<h5 class="mb-3">Derniers Événements</h5>
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Source IP</th>
+                    <th>Port</th>
+                    <th>Payload</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for e in events %}
+                <tr>
+                    <td class="small">{{ e.timestamp.strftime('%d/%m %H:%M') }}</td>
+                    <td><code>{{ e.source_ip }}</code></td>
+                    <td><span class="badge bg-primary">{{ e.port }}</span></td>
+                    <td class="small text-muted">{{ e.payload[:65] | default('—') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="/create_event" class="btn btn-primary me-2">Créer un événement manuel</a>
+    <a href="/simulate" class="btn btn-outline-light">Simuler du trafic réseau</a>
+</div>
+
+{% endblock %}
