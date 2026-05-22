@@ -7,12 +7,13 @@ Si au moins une règle est violée → crée une Intrusion + notifie le Module 4
 
 Règle de détection :
   Un événement constitue une intrusion si AUCUNE règle de la politique
-  n'autorise l'accès (user, resource, task, date). Défaut : tout refuser.
+  n'autorise l'accès (user, resource, task, date/heure). Défaut : tout refuser.
 
 Types de violations :
   1. Utilisateur inconnu de la politique
   2. Tâche/ressource non autorisée pour cet utilisateur
-  3. Date d'exécution hors de la plage autorisée
+  3. Date/heure d'exécution hors de la plage autorisée
+  4. Brute force — seuil de tentatives échouées dépassé
 """
 
 import os
@@ -20,6 +21,7 @@ import sys
 import json
 import time
 import threading
+from collections import defaultdict
 from datetime import datetime
 
 BASE_DIR   = os.path.dirname(os.path.dirname(__file__))
@@ -36,6 +38,26 @@ status = {
 
 # Queue partagée avec le Module 4
 _alert_queue = None
+
+# ── Détection Brute Force (fenêtre glissante) ────────────────────────────────
+_bf_tracker: dict = defaultdict(list)   # username → [timestamps des failed_login]
+BRUTE_FORCE_THRESHOLD = 5               # tentatives avant alerte
+BRUTE_FORCE_WINDOW    = 60              # secondes
+
+def _detect_brute_force(username: str) -> tuple[bool, int]:
+    """
+    Retourne (True, count) si le seuil brute force est atteint.
+    Utilise une fenêtre glissante de BRUTE_FORCE_WINDOW secondes.
+    """
+    now = time.time()
+    _bf_tracker[username] = [t for t in _bf_tracker[username]
+                              if now - t < BRUTE_FORCE_WINDOW]
+    _bf_tracker[username].append(now)
+    count = len(_bf_tracker[username])
+    # Déclencher au seuil, puis tous les 5 supplémentaires
+    triggered = (count == BRUTE_FORCE_THRESHOLD or
+                 (count > BRUTE_FORCE_THRESHOLD and (count - BRUTE_FORCE_THRESHOLD) % 5 == 0))
+    return triggered, count
 
 
 def _load_cursor() -> dict:
@@ -114,20 +136,32 @@ def _check_event(event: dict, policies: list) -> dict | None:
             'severity': 'critical',
         }
 
-    # Vérifier la plage de dates
+    # Vérifier la plage de dates ET d'heures
     for rule in matching_rules:
         if rule['start_date'] <= exec_date <= rule['end_date']:
             return None  # Accès autorisé
 
-    # Toutes les règles matchantes ont une date invalide
+    # Déterminer si c'est une violation de date ou d'heure
     best = matching_rules[0]
-    return {
-        'type':    'date_violation',
-        'message': (f"Accès de '{username}' hors de la plage autorisée "
-                    f"({best['start_date'].date()} → {best['end_date'].date()}) "
-                    f"— date d'exécution : {exec_date.date()}"),
-        'severity': 'high',
-    }
+    start, end = best['start_date'], best['end_date']
+
+    # Même jour mais heure différente → violation horaire
+    if start.date() <= exec_date.date() <= end.date():
+        violation_msg = (
+            f"Accès de '{username}' hors de la plage horaire autorisée "
+            f"({start.strftime('%H:%M')} → {end.strftime('%H:%M')}) "
+            f"— heure d'accès : {exec_date.strftime('%H:%M')}"
+        )
+        vtype = 'time_violation'
+    else:
+        violation_msg = (
+            f"Accès de '{username}' hors de la plage autorisée "
+            f"({start.date()} → {end.date()}) "
+            f"— date d'exécution : {exec_date.date()}"
+        )
+        vtype = 'date_violation'
+
+    return {'type': vtype, 'message': violation_msg, 'severity': 'high'}
 
 
 def _process_file(filepath: str, cursor: dict, policies: list, app) -> int:
@@ -156,12 +190,28 @@ def _process_file(filepath: str, cursor: dict, policies: list, app) -> int:
                     continue
 
                 status['analyzed'] += 1
-                violation = _check_event(event, policies)
 
+                # 1. Vérification politique normale
+                violation = _check_event(event, policies)
                 if violation:
                     _record_intrusion(event, violation, app)
                     intrusions += 1
                     status['intrusions'] += 1
+
+                # 2. Détection brute force (indépendante du check politique)
+                if event.get('task') == 'failed_login':
+                    triggered, count = _detect_brute_force(event.get('username', ''))
+                    if triggered:
+                        bf_violation = {
+                            'type':    'brute_force',
+                            'message': (f"Brute force détecté : {count} tentatives échouées "
+                                        f"en {BRUTE_FORCE_WINDOW}s pour "
+                                        f"'{event.get('username','')}'"),
+                            'severity': 'critical',
+                        }
+                        _record_intrusion(event, bf_violation, app)
+                        intrusions += 1
+                        status['intrusions'] += 1
 
         cursor[fname] = size
 

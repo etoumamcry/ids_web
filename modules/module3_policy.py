@@ -31,6 +31,17 @@ from datetime import datetime
 BASE_DIR    = os.path.dirname(os.path.dirname(__file__))
 POLICY_FILE = os.path.join(BASE_DIR, 'policy.conf')
 
+def _parse_dt(s: str) -> datetime:
+    """Parse YYYY-MM-DD ou YYYY-MM-DD HH:MM (avec heure pour restriction horaire)."""
+    s = s.strip()
+    for fmt in ['%Y-%m-%d %H:%M', '%Y-%m-%d']:
+        try:
+            return datetime.strptime(s, fmt)
+        except ValueError:
+            continue
+    raise ValueError(f"Format invalide: '{s}' — attendu YYYY-MM-DD ou YYYY-MM-DD HH:MM")
+
+
 HEADER = """\
 # ============================================================
 # IDS — Politique de Sécurité
@@ -82,10 +93,10 @@ def parse_policy_file(path: str) -> list[dict]:
                 continue
 
             try:
-                start_date = datetime.strptime(start_str, '%Y-%m-%d')
-                end_date   = datetime.strptime(end_str,   '%Y-%m-%d')
-            except ValueError:
-                errors.append(f'Ligne {lineno}: date invalide (format YYYY-MM-DD)')
+                start_date = _parse_dt(start_str)
+                end_date   = _parse_dt(end_str)
+            except ValueError as e:
+                errors.append(f'Ligne {lineno}: {e}')
                 continue
 
             if start_date > end_date:
@@ -190,9 +201,12 @@ def export_to_file(app, path: str = None) -> int:
         lines = [HEADER]
         for p in policies:
             active = '1' if p.active else '0'
+            # Inclure l'heure si elle n'est pas minuit (restriction horaire active)
+            s_fmt = '%Y-%m-%d %H:%M' if p.start_date.hour or p.start_date.minute else '%Y-%m-%d'
+            e_fmt = '%Y-%m-%d %H:%M' if p.end_date.hour or p.end_date.minute else '%Y-%m-%d'
             line = (f"{p.user.username};{p.resource.name};{p.task};"
-                    f"{p.start_date.strftime('%Y-%m-%d')};"
-                    f"{p.end_date.strftime('%Y-%m-%d')};{active}")
+                    f"{p.start_date.strftime(s_fmt)};"
+                    f"{p.end_date.strftime(e_fmt)};{active}")
             lines.append(line)
 
         with open(path, 'w', encoding='utf-8') as f:

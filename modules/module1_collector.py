@@ -26,6 +26,7 @@ import platform
 import hashlib
 import threading
 import subprocess
+from collections import defaultdict
 from datetime import datetime
 
 # ── Statut partagé (lu par l'interface web) ─────────────────────────────────
@@ -389,6 +390,35 @@ class WindowsLogCollector(threading.Thread):
 # CAPTURE RÉSEAU — scapy
 # ════════════════════════════════════════════════════════════════════════════
 
+# ── Détection Scan de Ports (fenêtre glissante par IP) ───────────────────────
+_port_tracker:     dict = defaultdict(set)    # ip → {ports contactés}
+_port_first_seen:  dict = {}                  # ip → timestamp premier paquet
+PORT_SCAN_THRESHOLD = 15   # ports différents avant alerte
+PORT_SCAN_WINDOW    = 60   # secondes
+
+def _check_port_scan(src_ip: str, port: int) -> tuple[bool, int]:
+    """
+    Retourne (True, nb_ports) si l'IP a sondé trop de ports différents.
+    Fenêtre glissante de PORT_SCAN_WINDOW secondes.
+    """
+    now = time.time()
+    first = _port_first_seen.get(src_ip, now)
+
+    if now - first > PORT_SCAN_WINDOW:
+        _port_tracker[src_ip]   = set()
+        _port_first_seen[src_ip] = now
+
+    if src_ip not in _port_first_seen:
+        _port_first_seen[src_ip] = now
+
+    _port_tracker[src_ip].add(port)
+    n = len(_port_tracker[src_ip])
+
+    triggered = (n == PORT_SCAN_THRESHOLD or
+                 (n > PORT_SCAN_THRESHOLD and (n - PORT_SCAN_THRESHOLD) % 10 == 0))
+    return triggered, n
+
+
 class NetworkCapture(threading.Thread):
     """Capture les paquets IP et génère des événements réseau."""
 
@@ -429,6 +459,19 @@ class NetworkCapture(threading.Thread):
 
             if port in (5000, 5001):  # ignorer Flask
                 return
+
+            # ── Détection scan de ports ──────────────────────────────────
+            scan_triggered, n_ports = _check_port_scan(src, port)
+            if scan_triggered:
+                write_event(
+                    username=src,
+                    resource='network_scanner',
+                    task='port_scan',
+                    execution_date=datetime.utcnow(),
+                    source='network/port_scan',
+                    raw=(f'SCAN DE PORTS: {src} a sondé {n_ports} ports différents '
+                         f'en {PORT_SCAN_WINDOW}s')
+                )
 
             # Mapper le port vers une ressource
             port_map = {
@@ -521,9 +564,43 @@ class FileIntegrityMonitor(threading.Thread):
 class ProcessMonitor(threading.Thread):
     """Détecte les nouveaux processus suspects via psutil."""
 
-    SUSPICIOUS = ['nc', 'ncat', 'nmap', 'masscan', 'metasploit', 'msfconsole',
-                  'netcat', 'tcpdump', 'wireshark', 'burpsuite', 'sqlmap',
-                  'hydra', 'john', 'hashcat', 'mimikatz', 'psexec']
+    SUSPICIOUS = [
+        # Scanners réseau
+        'nmap', 'masscan', 'zmap', 'unicornscan', 'hping3', 'angry ip',
+        # Sniffers / MitM
+        'tcpdump', 'wireshark', 'tshark', 'ettercap', 'dsniff', 'arpspoof',
+        'bettercap', 'mitmproxy', 'responder',
+        # Outils de connexion / reverse shells
+        'nc', 'ncat', 'netcat', 'socat', 'chisel', 'ligolo', 'rpivot',
+        # Exploitation / frameworks
+        'msfconsole', 'msfvenom', 'metasploit', 'meterpreter',
+        'empire', 'covenant', 'sliver', 'havoc', 'cobalt',
+        # Webapps
+        'sqlmap', 'nikto', 'burpsuite', 'zaproxy', 'dirb', 'gobuster',
+        'dirbuster', 'ffuf', 'wfuzz', 'feroxbuster', 'nuclei',
+        # Mots de passe / cracking
+        'hydra', 'medusa', 'john', 'hashcat', 'ophcrack', 'fcrackzip',
+        'cewl', 'crunch',
+        # Post-exploitation Linux
+        'linpeas', 'linEnum', 'pspy', 'gtfobins',
+        # Post-exploitation Windows
+        'mimikatz', 'procdump', 'wce', 'fgdump', 'pwdump',
+        'rubeus', 'bloodhound', 'sharphound', 'powerview',
+        'psexec', 'wmiexec', 'smbexec', 'impacket',
+        # Escalade de privilèges
+        'linux-exploit-suggester', 'windows-exploit-suggester',
+        'wesng', 'sherlock',
+        # Crypto mining
+        'xmrig', 'minerd', 'cpuminer', 'ccminer', 'ethminer', 'nbminer',
+        # Tunneling / persistance
+        'proxychains', 'revsocks', 'iodine', 'dns2tcp', 'ptunnel',
+        # Commandes shell suspectes (détection par cmdline)
+        'bash -i', 'sh -i', 'python -c', 'python3 -c', 'perl -e',
+        'ruby -e', 'php -r', 'curl | bash', 'wget | bash',
+        # Outils Windows suspects
+        'powershell -enc', 'powershell -nop', 'cmd /c',
+        'reg add', 'schtasks /create', 'at /create',
+    ]
 
     def __init__(self):
         super().__init__(daemon=True, name='ProcessMonitor')
