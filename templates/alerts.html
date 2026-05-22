@@ -1,49 +1,32 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 style="font-size: 1.75rem;">🚨 Alertes de Sécurité</h1>
-    <span class="badge bg-danger px-3 py-2">Total : {{ alerts|length }}</span>
+<div class="pg-head a1">
+  <div><div class="pg-title">Alertes de Sécurité</div><div class="pg-sub">{{ alerts|length }} alerte(s)</div></div>
 </div>
-
-<div class="card">
-    <div class="table-responsive">
-        <table class="table table-hover mb-0">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Message</th>
-                    <th>Sévérité</th>
-                    <th>Statut</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for alert in alerts %}
-                <tr class="{{ 'table-danger' if alert.severity == 'critical' else 'table-warning' if alert.severity == 'high' else '' }}">
-                    <td class="small">{{ alert.timestamp.strftime('%d/%m/%Y %H:%M') }}</td>
-                    <td>{{ alert.message }}</td>
-                    <td>
-                        <span class="badge bg-{{ 'danger' if alert.severity=='critical' else 'warning' if alert.severity=='high' else 'info' }}">
-                            {{ alert.severity.upper() }}
-                        </span>
-                    </td>
-                    <td>
-                        {% if alert.acknowledged %}
-                            <span class="badge bg-success">Acquittée</span>
-                        {% else %}
-                            <span class="badge bg-secondary">Non lue</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if not alert.acknowledged %}
-                            <a href="/ack_alert/{{ alert.id }}" class="btn btn-sm btn-success">Acquitter</a>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div class="card a2">
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Date</th><th>Sévérité</th><th>Message</th><th>Statut</th><th>Action</th></tr></thead>
+      <tbody>
+      {% for a in alerts %}
+        <tr>
+          <td style="color:var(--text-3);font-size:12px;white-space:nowrap">{{ a.timestamp.strftime('%d/%m/%Y %H:%M') }}</td>
+          <td><span class="badge badge-{{ a.severity or 'medium' }}">{{ (a.severity or '?').upper() }}</span></td>
+          <td style="max-width:480px;font-size:13px">{{ a.message }}</td>
+          <td>
+            {% if a.acknowledged %}
+              <span class="badge badge-ok"><i class="fas fa-check"></i> Acquittée</span>
+            {% else %}
+              <span class="badge badge-gray">Non lue</span>
+            {% endif %}
+          </td>
+          <td>{% if not a.acknowledged %}<a href="/ack_alert/{{ a.id }}" class="btn btn-outline btn-sm"><i class="fas fa-check"></i> Acquitter</a>{% endif %}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" style="text-align:center;padding:56px;color:var(--text-3)"><i class="fas fa-shield-halved" style="font-size:26px;display:block;margin-bottom:10px;opacity:.15;color:var(--green)"></i>Aucune alerte</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

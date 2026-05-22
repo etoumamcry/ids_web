@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="pg-head a1">
+  <div><div class="pg-title">Table des Intrusions</div><div class="pg-sub">Violations de la politique de sécurité</div></div>
+  <div class="flex items gap-2">
+    <span class="badge badge-red" style="font-size:12.5px;padding:5px 12px">{{ intrusions|length }} intrusion(s)</span>
+    {% if intrusions %}
+      <a href="/ids/intrusions/reset" onclick="return confirm('Réinitialiser ?')" class="btn btn-danger btn-sm"><i class="fas fa-rotate-left"></i> Réinitialiser</a>
+    {% endif %}
+  </div>
+</div>
+<div class="card a2">
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Utilisateur</th><th>Ressource</th><th>Tâche</th><th>Date d'exécution</th><th>Type de violation</th><th>Détectée le</th></tr></thead>
+      <tbody>
+      {% for i in intrusions %}
+        <tr>
+          <td style="color:var(--text-3);font-size:12px">{{ i.id }}</td>
+          <td>
+            <div class="flex items gap-2">
+              <div class="avatar" style="width:30px;height:30px;background:var(--red-s);color:var(--red);font-size:10px">{{ i.entry.username[:2].upper() }}</div>
+              <span style="font-weight:600;font-size:13.5px">{{ i.entry.username }}</span>
+            </div>
+          </td>
+          <td><code>{{ i.entry.resource_name }}</code></td>
+          <td><span class="badge badge-gray">{{ i.entry.task }}</span></td>
+          <td style="color:var(--text-3);font-size:12px">{{ i.entry.execution_date.strftime('%d/%m/%Y %H:%M') }}</td>
+          <td>
+            {% if 'non authentifié' in i.violation_type or 'non autorisée' in i.violation_type %}
+              <span class="badge badge-red"><i class="fas fa-ban"></i> {{ i.violation_type }}</span>
+            {% else %}
+              <span class="badge badge-amber"><i class="fas fa-clock"></i> {{ i.violation_type }}</span>
+            {% endif %}
+          </td>
+          <td style="color:var(--text-3);font-size:12px">{{ i.detected_at.strftime('%d/%m %H:%M:%S') }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="7" style="text-align:center;padding:64px;color:var(--text-3)">
+            <i class="fas fa-shield-halved" style="font-size:30px;display:block;margin-bottom:12px;opacity:.15;color:var(--blue)"></i>
+            <div style="font-size:14px;margin-bottom:6px">Aucune intrusion détectée</div>
+            <div style="font-size:12.5px">Lancez l'analyse depuis le <a href="/ids" style="color:var(--blue);text-decoration:none;font-weight:600">Moteur d'Analyse</a>.</div>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

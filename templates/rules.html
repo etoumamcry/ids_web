@@ -1,39 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Gestion de la Politique de Sécurité</h1>
-
-<h4>Ajouter une nouvelle règle</h4>
-<form method="POST" action="/add_rule" class="mb-5">
-    <div class="row">
-        <div class="col-md-3"><input type="text" name="name" class="form-control" placeholder="Nom de la règle" required></div>
-        <div class="col-md-4"><input type="text" name="description" class="form-control" placeholder="Description"></div>
-        <div class="col-md-3"><input type="text" name="condition" class="form-control" placeholder="port==445 ou keyword=sql" required></div>
-        <div class="col-md-2">
-            <select name="severity" class="form-select">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high" selected>High</option>
-                <option value="critical">Critical</option>
+<div class="pg-head a1">
+  <div><div class="pg-title">Règles de Détection</div><div class="pg-sub">{{ rules|selectattr('active')|list|length }} actives sur {{ rules|length }}</div></div>
+</div>
+<div class="two-col" style="grid-template-columns:340px 1fr">
+  <div class="a2">
+    <div class="card">
+      <div class="card-header"><h6>Ajouter une règle</h6></div>
+      <div class="card-body">
+        <form method="POST" action="/add_rule">
+          <div class="f-group"><label class="f-label">Nom</label><input type="text" name="name" class="f-input" placeholder="ex: SQL Injection" required></div>
+          <div class="f-group"><label class="f-label">Description</label><input type="text" name="description" class="f-input" placeholder="Description courte"></div>
+          <div class="f-group">
+            <label class="f-label">Condition</label>
+            <input type="text" name="condition" class="f-input" placeholder="port==445 ou keyword=admin" required>
+            <div style="margin-top:5px;font-size:11.5px;color:var(--text-3)"><code>port==N</code> &nbsp; <code>keyword=mot</code> &nbsp; <code>regex</code></div>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Sévérité</label>
+            <select name="severity" class="f-select">
+              <option value="low">Low</option><option value="medium">Medium</option>
+              <option value="high" selected>High</option><option value="critical">Critical</option>
             </select>
-        </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full mt-2"><i class="fas fa-plus"></i> Ajouter</button>
+        </form>
+      </div>
     </div>
-    <button type="submit" class="btn btn-success mt-2">Ajouter la règle</button>
-</form>
-
-<h4>Règles existantes</h4>
-<table class="table table-striped">
-    <thead><tr><th>Nom</th><th>Description</th><th>Condition</th><th>Sévérité</th><th>Statut</th><th>Action</th></tr></thead>
-    <tbody>
-    {% for rule in rules %}
-        <tr>
-            <td>{{ rule.name }}</td>
-            <td>{{ rule.description }}</td>
-            <td><code>{{ rule.condition }}</code></td>
-            <td><span class="badge bg-{{ 'danger' if rule.severity=='critical' else 'warning' if rule.severity=='high' else 'info' }}">{{ rule.severity }}</span></td>
-            <td>{{ '✅ Actif' if rule.active else '❌ Désactivé' }}</td>
-            <td><a href="/toggle_rule/{{ rule.id }}" class="btn btn-sm btn-secondary">Activer/Désactiver</a></td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+  </div>
+  <div class="a3">
+    <div class="card">
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Nom</th><th>Condition</th><th>Sévérité</th><th>Statut</th><th>Action</th></tr></thead>
+          <tbody>
+          {% for r in rules %}
+            <tr>
+              <td>
+                <div style="font-weight:600;font-size:13.5px">{{ r.name }}</div>
+                <div style="font-size:12px;color:var(--text-3)">{{ r.description or '' }}</div>
+              </td>
+              <td><code>{{ r.condition }}</code></td>
+              <td><span class="badge badge-{{ r.severity }}">{{ r.severity.upper() }}</span></td>
+              <td><span class="badge badge-{{ 'ok' if r.active else 'gray' }}">{{ 'Actif' if r.active else 'Inactif' }}</span></td>
+              <td><a href="/toggle_rule/{{ r.id }}" class="btn btn-outline btn-sm"><i class="fas fa-power-off"></i></a></td>
+            </tr>
+          {% else %}
+            <tr><td colspan="5" style="text-align:center;padding:48px;color:var(--text-3)">Aucune règle</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

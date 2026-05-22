@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="pg-head a1">
+  <div><div class="pg-title">Politique de Sécurité</div><div class="pg-sub">Autorisations — utilisateur × ressource × tâche × plage de dates</div></div>
+  <span class="badge badge-green">{{ policies|selectattr('active')|list|length }} active(s)</span>
+</div>
+<div class="two-col" style="grid-template-columns:340px 1fr">
+  <div class="a2">
+    <div class="card">
+      <div class="card-header"><h6>Ajouter une règle</h6></div>
+      <div class="card-body">
+        <form method="POST" action="/ids/policy/add">
+          <div class="f-group">
+            <label class="f-label">Utilisateur</label>
+            <select name="user_id" class="f-select" required>
+              <option value="">— Choisir —</option>
+              {% for u in users %}<option value="{{ u.id }}">{{ u.username }} ({{ u.role }})</option>{% endfor %}
+            </select>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Ressource</label>
+            <select name="resource_id" class="f-select" required>
+              <option value="">— Choisir —</option>
+              {% for r in resources %}<option value="{{ r.id }}">{{ r.name }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Tâche autorisée</label>
+            <select name="task" class="f-select" required>
+              <option value="read">read</option><option value="write">write</option>
+              <option value="delete">delete</option><option value="execute">execute</option>
+              <option value="admin">admin</option><option value="login">login</option>
+              <option value="failed_login">failed_login</option><option value="backup">backup</option>
+            </select>
+          </div>
+          <div class="f-group"><label class="f-label">Date de début</label><input type="datetime-local" name="start_date" class="f-input" required></div>
+          <div class="f-group"><label class="f-label">Date de fin</label><input type="datetime-local" name="end_date" class="f-input" required></div>
+          <button type="submit" class="btn btn-primary btn-full mt-2"><i class="fas fa-plus"></i> Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="a3">
+    <div class="card">
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Utilisateur</th><th>Ressource</th><th>Tâche</th><th>Début</th><th>Fin</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody>
+          {% for p in policies %}
+            <tr style="{{ 'opacity:.5' if not p.active else '' }}">
+              <td>
+                <div class="flex items gap-2">
+                  <div class="avatar" style="width:28px;height:28px;background:var(--blue-s);color:var(--blue);font-size:10px">{{ p.user.username[:2].upper() }}</div>
+                  <span style="font-weight:600;font-size:13.5px">{{ p.user.username }}</span>
+                </div>
+              </td>
+              <td><code>{{ p.resource.name }}</code></td>
+              <td><span class="badge badge-gray">{{ p.task }}</span></td>
+              <td style="color:var(--text-3);font-size:12px">{{ p.start_date.strftime('%d/%m/%Y') }}</td>
+              <td style="color:var(--text-3);font-size:12px">{{ p.end_date.strftime('%d/%m/%Y') }}</td>
+              <td><span class="badge badge-{{ 'ok' if p.active else 'gray' }}">{{ 'Actif' if p.active else 'Inactif' }}</span></td>
+              <td>
+                <div class="flex items gap-1">
+                  <a href="/ids/policy/toggle/{{ p.id }}" class="btn btn-outline btn-sm"><i class="fas fa-power-off"></i></a>
+                  <a href="/ids/policy/delete/{{ p.id }}" onclick="return confirm('Supprimer ?')" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+          {% else %}
+            <tr><td colspan="7" style="text-align:center;padding:48px;color:var(--text-3)">Aucune règle</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
