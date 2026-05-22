@@ -507,6 +507,8 @@ def ids_monitoring():
     recent = Intrusion.query.order_by(Intrusion.detected_at.desc()).limit(10).all()
     return render_template('ids_monitoring.html',
         m1=m1.status, m2=m2.status, m3=m3.status, m4=m4.status,
+        sniffer=m1.sniffer_status,
+        logwatcher=m1.logwatcher_status,
         recent_intrusions=recent,
         events_dir=EVENTS_DIR, alerts_dir=ALERTS_DIR)
 
@@ -534,6 +536,9 @@ def stream_stats():
                     'm2_last_check':    m2.status['last_check'],
                     'm4_alerts_sent':   m4.status['alerts_sent'],
                     'm4_queue':         m4.status['queue_size'],
+                    'sniffer_packets':  m1.sniffer_status['packets_captured'],
+                    'log_lines':        m1.logwatcher_status['lines_processed'],
+                    'log_entries':      m1.logwatcher_status['entries_created'],
                     'ts':               datetime.utcnow().strftime('%H:%M:%S'),
                 }
                 yield f'data: {json.dumps(data)}\n\n'

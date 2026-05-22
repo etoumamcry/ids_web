@@ -39,6 +39,23 @@ status = {
     'started_at':  None,
 }
 
+sniffer_status = {
+    'active':           False,
+    'error':            None,
+    'packets_captured': 0,
+    'interface':        'all',
+    'started_at':       None,
+}
+
+logwatcher_status = {
+    'active':          False,
+    'error':           None,
+    'log_file':        None,
+    'lines_processed': 0,
+    'entries_created': 0,
+    'started_at':      None,
+}
+
 SYSTEM = platform.system()  # 'Linux', 'Windows', 'Darwin'
 
 # ── Répertoire de sortie ─────────────────────────────────────────────────────
@@ -59,6 +76,20 @@ INTEGRITY_FILES = {
     'Windows': ['C:\\Windows\\System32\\drivers\\etc\\hosts',
                 'C:\\Windows\\System32\\config\\SAM'],
 }
+
+INTEGRITY_CONF = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'ids_integrity.conf')
+
+def _load_integrity_targets() -> list:
+    """Load integrity targets from ids_integrity.conf if present, else use defaults."""
+    if os.path.exists(INTEGRITY_CONF):
+        targets = []
+        with open(INTEGRITY_CONF, encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    targets.append(line)
+        return targets
+    return INTEGRITY_FILES.get(SYSTEM, INTEGRITY_FILES['Linux'])
 
 # ── Ressources détectées automatiquement ─────────────────────────────────────
 def _cmd_to_resource(cmd):
@@ -212,8 +243,13 @@ class LinuxLogCollector(threading.Thread):
     def run(self):
         self._log_file = self._find_log()
         if not self._log_file:
+            logwatcher_status['error'] = 'auth.log inaccessible — lancez avec sudo'
             status['errors'].append('auth.log inaccessible — lancez avec sudo')
             return
+
+        logwatcher_status['active']     = True
+        logwatcher_status['log_file']   = self._log_file
+        logwatcher_status['started_at'] = datetime.utcnow()
 
         self._log_pos = os.path.getsize(self._log_file)
         if os.path.exists('/var/log/audit/audit.log'):
@@ -242,9 +278,11 @@ class LinuxLogCollector(threading.Thread):
                 with open(self._log_file, encoding='utf-8', errors='replace') as f:
                     f.seek(self._log_pos)
                     for line in f:
+                        logwatcher_status['lines_processed'] += 1
                         ev = _parse_auth_line(line)
                         if ev:
                             write_event(**ev)
+                            logwatcher_status['entries_created'] += 1
                 self._log_pos = size
         except Exception as e:
             status['errors'].append(f'LinuxLogCollector: {e}')
@@ -430,19 +468,25 @@ class NetworkCapture(threading.Thread):
         try:
             from scapy.all import sniff, IP, TCP, UDP, Raw
         except ImportError:
+            sniffer_status['error'] = 'scapy non installé (pip install scapy)'
             status['errors'].append('NetworkCapture: pip install scapy')
             return
 
         if SYSTEM != 'Windows' and os.geteuid() != 0:
+            sniffer_status['error'] = 'Droits root requis (lancez avec sudo)'
             status['errors'].append('NetworkCapture: droits root requis (sudo)')
             return
 
+        sniffer_status['active']     = True
+        sniffer_status['error']      = None
+        sniffer_status['started_at'] = datetime.utcnow()
         status['sources'].append('Réseau (scapy)')
 
         def handle(pkt):
             if IP not in pkt:
                 return
             self._count += 1
+            sniffer_status['packets_captured'] = self._count
             src = pkt[IP].src
             dst = pkt[IP].dst
             port, proto, payload = 0, 'OTHER', ''
@@ -502,6 +546,8 @@ class NetworkCapture(threading.Thread):
             sniff(prn=handle, store=False,
                   filter='ip and not (src host 127.0.0.1 or dst host 127.0.0.1)')
         except Exception as e:
+            sniffer_status['active'] = False
+            sniffer_status['error']  = str(e)
             status['errors'].append(f'NetworkCapture: {e}')
 
 
@@ -527,7 +573,7 @@ class FileIntegrityMonitor(threading.Thread):
             return None
 
     def run(self):
-        targets = INTEGRITY_FILES.get(SYSTEM, INTEGRITY_FILES['Linux'])
+        targets = _load_integrity_targets()
         existing = [p for p in targets if os.path.exists(p)]
 
         if not existing:
@@ -630,9 +676,19 @@ class ProcessMonitor(threading.Thread):
                         current_pids.add(pid)
 
                         if pid not in self._known_pids:
-                            # Nouveau processus
-                            is_suspicious = any(s in name or s in cmd
-                                                for s in self.SUSPICIOUS)
+                            # New process — word-boundary matching to avoid false positives
+                            name_words = set(re.split(r'[\s/\-._]', name))
+                            cmd_lower  = cmd
+                            is_suspicious = False
+                            for s in self.SUSPICIOUS:
+                                if ' ' in s:
+                                    if s in cmd_lower:
+                                        is_suspicious = True
+                                        break
+                                else:
+                                    if s in name_words or name == s:
+                                        is_suspicious = True
+                                        break
                             if is_suspicious:
                                 write_event(
                                     username=user,

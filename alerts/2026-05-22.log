@@ -1603,3 +1603,648 @@ INTRUSION DÉTECTÉE
   Type        : user_unknown
   Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1369068) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
 ═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:21:51 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:21:48
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1371078) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:23:57 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:23:55
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1372115) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:24:27 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:24:26
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1372371) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:25:00 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:24:58
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1372635) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:30:43 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:30:42
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1375427) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:31:16 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:31:14
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1375702) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:31:46 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:31:45
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1375940) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:32:19 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:32:17
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1376187) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:33:22 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:33:20
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1376720) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:33:52 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:33:52
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1376979) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:34:58 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:34:56
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1377412) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:42:17 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:42:15
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1380964) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:42:50 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:42:48
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1381199) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:44:56 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:44:53
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1382112) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:48:02 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:48:01
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1383575) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:50:09 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:50:06
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1385232) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:50:33 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:50:31
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: code (pid=1385553) cmd=/proc/self/exe --type=utility --utility-sub-type=network.m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:50:40 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : 70
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:50:38
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur '70' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: postgres (pid=1385863) cmd=postgres: autovacuum launcher 
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:50:40 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : 70
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:50:38
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur '70' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: postgres (pid=1385865) cmd=postgres: logical replication launcher 
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:51:01 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:50:59
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: code (pid=1386080) cmd=/proc/self/exe --type=utility --utility-sub-type=node.mojo
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:51:01 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:50:59
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: code (pid=1386081) cmd=/proc/self/exe --type=utility --utility-sub-type=node.mojo
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:51:10 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:51:08
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: code (pid=1386127) cmd=/proc/self/exe --type=utility --utility-sub-type=node.mojo
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:53:03 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:53:00
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1386681) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:54:16 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:54:14
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1387159) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:55:32 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : 70
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:55:30
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur '70' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: postgres (pid=1388082) cmd=postgres: autovacuum launcher 
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 16:55:32 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : 70
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 16:55:30
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur '70' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: postgres (pid=1388083) cmd=postgres: logical replication launcher 
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:00:13 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:00:12
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1389564) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:01:53 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:01:50
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1390165) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:05:13 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:05:08
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1391202) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:07:52 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:07:48
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1392021) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:08:25 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:08:23
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1392207) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:09:31 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:09:29
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: code (pid=1392521) cmd=/usr/share/code/code --max-old-space-size=3072 /usr/share/
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:09:31 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:09:29
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: code (pid=1392522) cmd=/usr/share/code/code --max-old-space-size=3072 /usr/share/
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:11:44 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:11:43
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1393205) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:13:18 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:13:18
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1393702) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:16:01 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:15:59
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1394577) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:17:36 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:17:33
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1395036) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:19:40 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:19:38
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1395722) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:20:13 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:20:11
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1395949) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:20:47 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:20:45
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1396038) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:23:00 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:22:57
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1396779) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 17:23:31 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:23:30
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: kubectl (pid=1396860) cmd=kubectl logs -n argocd -l app=pg-replicator --since=1m
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-22 18:59:24 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : gdm
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-22 17:25:33
+  Source      : process_monitor
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'gdm' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : PROCESSUS SUSPECT: at-spi-bus-launcher (pid=1397828) cmd=/usr/libexec/at-spi-bus-launcher
+═══════════════════════════════════════════════════════

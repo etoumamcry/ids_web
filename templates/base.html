@@ -135,6 +135,8 @@
     }
     .nl i { font-size: 12px; opacity: .7; }
     .nl:hover { color: var(--blue); border-bottom-color: var(--blue-t); }
+    .nl.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+    .nl.active i { opacity: 1; }
 
     .nav-div {
         width: 1px;
@@ -539,22 +541,22 @@
     </a>
 
     <span class="nav-gl">Réseau</span>
-    <a class="nl" href="/"><i class="fas fa-chart-line"></i> Dashboard</a>
-    <a class="nl" href="/events"><i class="fas fa-list-ul"></i> Événements</a>
-    <a class="nl" href="/rules"><i class="fas fa-filter"></i> Règles</a>
-    <a class="nl" href="/alerts"><i class="fas fa-bell"></i> Alertes</a>
+    <a class="nl {{ 'active' if request.path == '/' }}" href="/"><i class="fas fa-chart-line"></i> Dashboard</a>
+    <a class="nl {{ 'active' if request.path == '/events' }}" href="/events"><i class="fas fa-list-ul"></i> Événements</a>
+    <a class="nl {{ 'active' if request.path == '/rules' }}" href="/rules"><i class="fas fa-filter"></i> Règles</a>
+    <a class="nl {{ 'active' if request.path == '/alerts' }}" href="/alerts"><i class="fas fa-bell"></i> Alertes</a>
 
     <div class="nav-div"></div>
 
     <span class="nav-gl">Analyse</span>
-    <a class="nl" href="/ids"><i class="fas fa-magnifying-glass"></i> Moteur</a>
-    <a class="nl" href="/ids/users"><i class="fas fa-users"></i> Utilisateurs</a>
-    <a class="nl" href="/ids/resources"><i class="fas fa-server"></i> Ressources</a>
-    <a class="nl" href="/ids/policy"><i class="fas fa-lock"></i> Politique</a>
-    <a class="nl" href="/ids/files"><i class="fas fa-folder"></i> Fichiers</a>
-    <a class="nl" href="/ids/intrusions"><i class="fas fa-bug"></i> Intrusions</a>
-    <a class="nl" href="/ids/monitoring"><i class="fas fa-tower-broadcast"></i> Monitoring</a>
-    <a class="nl" href="/ids/scenario"><i class="fas fa-flask"></i> Scénario</a>
+    <a class="nl {{ 'active' if request.path == '/ids' }}" href="/ids"><i class="fas fa-magnifying-glass"></i> Moteur</a>
+    <a class="nl {{ 'active' if request.path == '/ids/users' }}" href="/ids/users"><i class="fas fa-users"></i> Utilisateurs</a>
+    <a class="nl {{ 'active' if request.path == '/ids/resources' }}" href="/ids/resources"><i class="fas fa-server"></i> Ressources</a>
+    <a class="nl {{ 'active' if request.path.startswith('/ids/policy') }}" href="/ids/policy"><i class="fas fa-lock"></i> Politique</a>
+    <a class="nl {{ 'active' if request.path == '/ids/files' }}" href="/ids/files"><i class="fas fa-folder"></i> Fichiers</a>
+    <a class="nl {{ 'active' if request.path == '/ids/intrusions' }}" href="/ids/intrusions"><i class="fas fa-bug"></i> Intrusions</a>
+    <a class="nl {{ 'active' if request.path == '/ids/monitoring' }}" href="/ids/monitoring"><i class="fas fa-tower-broadcast"></i> Monitoring</a>
+    <a class="nl {{ 'active' if request.path == '/ids/scenario' }}" href="/ids/scenario"><i class="fas fa-flask"></i> Scénario</a>
 
     <div class="nav-actions">
       <div class="status-pill">
