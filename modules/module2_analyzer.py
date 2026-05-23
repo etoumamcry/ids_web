@@ -106,11 +106,27 @@ def _check_event(event: dict, policies: list) -> dict | None:
     except Exception:
         exec_date = datetime.utcnow()
 
-    # Exclure les IPs réseau et comptes système sans contrôle d'accès
-    system_accounts = {'SYSTEM', 'root', 'LOCAL SERVICE', 'NETWORK SERVICE',
-                       'daemon', 'nobody', 'www-data', '_apt'}
+    # Exclure les comptes système sans contrôle d'accès
+    system_accounts = {'SYSTEM', 'LOCAL SERVICE', 'NETWORK SERVICE',
+                       'daemon', 'nobody', 'www-data', '_apt', 'gdm'}
     if username in system_accounts:
         return None
+
+    # Les événements réseau ont une IP comme username (source network/*)
+    # Ils bypassent la politique utilisateur et sont toujours des alertes
+    source = event.get('source', '')
+    if source.startswith('network/') and source != 'network/port_scan':
+        import re as _re
+        if _re.match(r'^\d{1,3}(\.\d{1,3}){3}$', username):
+            # Ignorer les vieux événements réseau (backlog JSONL) — max 10 min
+            age = (datetime.utcnow() - exec_date).total_seconds()
+            if age > 600:
+                return None
+            return {
+                'type':    'network_intrusion',
+                'message': f"Connexion entrante suspecte depuis {username} sur {resource} ({task})",
+                'severity': 'high',
+            }
 
     # Trouver toutes les règles concernant cet utilisateur
     user_rules = [p for p in policies if p['username'] == username]

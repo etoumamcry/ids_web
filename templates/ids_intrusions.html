@@ -27,10 +27,13 @@
           <td><span class="badge badge-gray">{{ i.entry.task }}</span></td>
           <td style="color:var(--text-3);font-size:12px">{{ i.entry.execution_date.strftime('%d/%m/%Y %H:%M') }}</td>
           <td>
-            {% if 'non authentifié' in i.violation_type or 'non autorisée' in i.violation_type %}
-              <span class="badge badge-red"><i class="fas fa-ban"></i> {{ i.violation_type }}</span>
+            {% set vtype = i.violation_type or '' %}
+            {% if 'inconnu' in vtype or 'absent' in vtype or 'network_intrusion' in vtype %}
+              <span class="badge badge-red"><i class="fas fa-ban"></i> {{ vtype[:80] }}</span>
+            {% elif 'horaire' in vtype or 'date' in vtype or 'plage' in vtype %}
+              <span class="badge badge-amber"><i class="fas fa-clock"></i> {{ vtype[:80] }}</span>
             {% else %}
-              <span class="badge badge-amber"><i class="fas fa-clock"></i> {{ i.violation_type }}</span>
+              <span class="badge badge-amber"><i class="fas fa-triangle-exclamation"></i> {{ vtype[:80] }}</span>
             {% endif %}
           </td>
           <td style="color:var(--text-3);font-size:12px">{{ i.detected_at.strftime('%d/%m %H:%M:%S') }}</td>

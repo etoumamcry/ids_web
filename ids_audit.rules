@@ -1,0 +1,23 @@
+## IDS Web — Règles auditd
+## Chargées automatiquement par le Module 1 au démarrage.
+## Pour les appliquer manuellement :
+##   sudo auditctl -R /chemin/vers/ids_audit.rules
+
+# Commandes exécutées en root
+-a always,exit -F arch=b64 -S execve -F euid=0 -k ids_root_exec
+
+# Fichiers système critiques
+-w /etc/passwd          -p rwa -k ids_passwd
+-w /etc/shadow          -p rwa -k ids_shadow
+-w /etc/sudoers         -p rwa -k ids_sudoers
+-w /etc/ssh/sshd_config -p rwa -k ids_sshd
+-w /etc/crontab         -p rwa -k ids_cron
+-w /etc/hosts           -p rwa -k ids_hosts
+
+# Exécutables de gestion des utilisateurs
+-w /usr/sbin/useradd    -p x   -k ids_useradd
+-w /usr/sbin/userdel    -p x   -k ids_userdel
+-w /usr/bin/passwd      -p x   -k ids_passwd_chg
+
+# Connexions réseau sortantes
+-a always,exit -F arch=b64 -S connect -k ids_connect

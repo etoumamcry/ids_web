@@ -1,0 +1,525 @@
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:00:28 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:00:26
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:00:28 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:00:26
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:01:10 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:01:07
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:01:10 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:01:07
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:02:01 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:01:59
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:02:01 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:01:59
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:03:44 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:03:43
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:03:47 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:03:43
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:03:47 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:03:43
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:04:38 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:04:36
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:04:38 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:04:36
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:06:35 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:06:34
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:08:44 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:08:44
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:08:44 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:08:44
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:09:59 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:09:56
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:09:59 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:09:56
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:12:24 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:12:21
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:12:24 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:12:21
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:15:00 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:14:57
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:15:00 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:14:57
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:17:45 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:17:42
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:17:45 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:17:43
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:17:45 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:17:43
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:20:55 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:20:49
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:20:55 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:20:49
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:22:10 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : 10.227.28.7
+  Ressource   : network_scanner
+  Tâche       : port_scan
+  Date accès  : 2026-05-23 00:22:10
+  Source      : network/port_scan
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur '10.227.28.7' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : SCAN DE PORTS: 10.227.28.7 a sondé 15 ports différents en 60s
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:22:35 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : roberto
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:22:34
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'roberto' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: ip (/usr/bin/ip)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:22:38 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:22:36
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:22:38 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:22:36
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:26:08 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:26:08
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:26:08 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:26:08
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:28:00 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:27:57
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:28:01 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:27:57
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:28:13 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:28:09
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: 9 (/usr/lib/systemd/systemd-executor)
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+[CRITIQUE] 2026-05-23 00:28:13 UTC
+───────────────────────────────────────────────────────
+INTRUSION DÉTECTÉE
+  Utilisateur : root
+  Ressource   : system
+  Tâche       : execute
+  Date accès  : 2026-05-23 00:28:10
+  Source      : auditd/execve
+───────────────────────────────────────────────────────
+  Violation   : Utilisateur 'root' absent de la politique de sécurité
+  Type        : user_unknown
+  Ligne brute : ROOT EXEC: kubelet (/usr/bin/kubelet)
+═══════════════════════════════════════════════════════

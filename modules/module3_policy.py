@@ -232,9 +232,12 @@ class PolicyWatcher(threading.Thread):
         # Chargement initial
         if os.path.exists(POLICY_FILE):
             result = import_from_file(self.app, replace=False)
-            print(f'[MODULE 3] Politique chargée: {result["created"]} règles',
-                  file=sys.stderr)
             self._mtime = os.path.getmtime(POLICY_FILE)
+            with self.app.app_context():
+                from models import AccessPolicy
+                total = AccessPolicy.query.count()
+            print(f'[MODULE 3] Politique: {total} règle(s) actives ({result["created"]} nouvelle(s) depuis policy.conf)',
+                  file=sys.stderr)
         else:
             # Créer un fichier template vide
             _create_default_policy()

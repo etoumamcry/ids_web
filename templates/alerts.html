@@ -1,18 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="pg-head a1">
-  <div><div class="pg-title">Alertes de Sécurité</div><div class="pg-sub">{{ alerts|length }} alerte(s)</div></div>
+  <div>
+    <div class="pg-title">Alertes de Sécurité</div>
+    <div class="pg-sub">{{ alerts|length }} alerte(s) — {{ alerts|selectattr('acknowledged','equalto',false)|list|length }} non lue(s)</div>
+  </div>
+  {% if alerts %}
+  <a href="/ack_all_alerts" class="btn btn-outline btn-sm"><i class="fas fa-check-double"></i> Tout acquitter</a>
+  {% endif %}
 </div>
 <div class="card a2">
   <div class="tbl-wrap">
     <table class="tbl">
-      <thead><tr><th>Date</th><th>Sévérité</th><th>Message</th><th>Statut</th><th>Action</th></tr></thead>
+      <thead><tr><th>Date</th><th>Source</th><th>Sévérité</th><th>Message</th><th>Statut</th><th>Action</th></tr></thead>
       <tbody>
       {% for a in alerts %}
+        {% set is_ids = a.message and a.message.startswith('[IDS]') %}
+        {% set sev = a.severity or 'medium' %}
+        {% set sev_badge = 'red' if sev == 'critical' else 'amber' if sev in ('high','medium') else 'gray' %}
         <tr>
           <td style="color:var(--text-3);font-size:12px;white-space:nowrap">{{ a.timestamp.strftime('%d/%m/%Y %H:%M') }}</td>
-          <td><span class="badge badge-{{ a.severity or 'medium' }}">{{ (a.severity or '?').upper() }}</span></td>
-          <td style="max-width:480px;font-size:13px">{{ a.message }}</td>
+          <td>
+            {% if is_ids %}
+              <span class="badge badge-red"><i class="fas fa-bug"></i> IDS</span>
+            {% else %}
+              <span class="badge badge-gray"><i class="fas fa-network-wired"></i> Réseau</span>
+            {% endif %}
+          </td>
+          <td><span class="badge badge-{{ sev_badge }}">{{ sev.upper() }}</span></td>
+          <td style="max-width:420px;font-size:13px">{{ a.message }}</td>
           <td>
             {% if a.acknowledged %}
               <span class="badge badge-ok"><i class="fas fa-check"></i> Acquittée</span>
@@ -20,10 +36,13 @@
               <span class="badge badge-gray">Non lue</span>
             {% endif %}
           </td>
-          <td>{% if not a.acknowledged %}<a href="/ack_alert/{{ a.id }}" class="btn btn-outline btn-sm"><i class="fas fa-check"></i> Acquitter</a>{% endif %}</td>
+          <td>{% if not a.acknowledged %}<a href="/ack_alert/{{ a.id }}" class="btn btn-outline btn-sm"><i class="fas fa-check"></i></a>{% endif %}</td>
         </tr>
       {% else %}
-        <tr><td colspan="5" style="text-align:center;padding:56px;color:var(--text-3)"><i class="fas fa-shield-halved" style="font-size:26px;display:block;margin-bottom:10px;opacity:.15;color:var(--green)"></i>Aucune alerte</td></tr>
+        <tr><td colspan="6" style="text-align:center;padding:56px;color:var(--text-3)">
+          <i class="fas fa-shield-halved" style="font-size:26px;display:block;margin-bottom:10px;opacity:.15;color:var(--green)"></i>
+          Aucune alerte
+        </td></tr>
       {% endfor %}
       </tbody>
     </table>

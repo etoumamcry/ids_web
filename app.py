@@ -54,6 +54,11 @@ def _start_modules():
 # DASHBOARD
 # ══════════════════════════════════════════════════════════════════
 
+@app.route('/favicon.ico')
+def favicon():
+    return Response(status=204)
+
+
 @app.route('/')
 def index():
     return render_template('index.html',
@@ -173,6 +178,13 @@ def ack_alert(alert_id):
     db.session.commit()
     return redirect(url_for('alerts'))
 
+@app.route('/ack_all_alerts')
+def ack_all_alerts():
+    Alert.query.filter_by(acknowledged=False).update({'acknowledged': True})
+    db.session.commit()
+    flash('Toutes les alertes acquittées.', 'success')
+    return redirect(url_for('alerts'))
+
 
 # ══════════════════════════════════════════════════════════════════
 # MODULE 3 — Politique de sécurité (routes web)
@@ -191,12 +203,16 @@ def ids_policy():
 
 @app.route('/ids/policy/add', methods=['POST'])
 def ids_add_policy():
+    s_date = request.form['start_date']
+    s_time = request.form.get('start_time', '00:00') or '00:00'
+    e_date = request.form['end_date']
+    e_time = request.form.get('end_time', '00:00') or '00:00'
     db.session.add(AccessPolicy(
         user_id=int(request.form['user_id']),
         resource_id=int(request.form['resource_id']),
         task=request.form['task'],
-        start_date=datetime.strptime(request.form['start_date'], '%Y-%m-%dT%H:%M'),
-        end_date=datetime.strptime(request.form['end_date'], '%Y-%m-%dT%H:%M'),
+        start_date=datetime.strptime(f'{s_date}T{s_time}', '%Y-%m-%dT%H:%M'),
+        end_date=datetime.strptime(f'{e_date}T{e_time}', '%Y-%m-%dT%H:%M'),
     ))
     db.session.commit()
     flash("Règle d'accès ajoutée.", 'success')
@@ -277,15 +293,20 @@ def ids_users():
 
 @app.route('/ids/users/add', methods=['POST'])
 def ids_add_user():
-    db.session.add(IDSUser(username=request.form['username'],
-                           role=request.form.get('role', 'user')))
+    username = request.form['username'].strip()
+    if IDSUser.query.filter_by(username=username).first():
+        flash(f"L'utilisateur '{username}' existe déjà.", 'warning')
+        return redirect(url_for('ids_users'))
+    db.session.add(IDSUser(username=username, role=request.form.get('role', 'user')))
     db.session.commit()
-    flash('Utilisateur ajouté.', 'success')
+    flash(f"Utilisateur '{username}' ajouté.", 'success')
     return redirect(url_for('ids_users'))
 
 @app.route('/ids/users/delete/<int:user_id>')
 def ids_delete_user(user_id):
-    db.session.delete(IDSUser.query.get_or_404(user_id))
+    user = IDSUser.query.get_or_404(user_id)
+    AccessPolicy.query.filter_by(user_id=user.id).delete()
+    db.session.delete(user)
     db.session.commit()
     flash('Utilisateur supprimé.', 'info')
     return redirect(url_for('ids_users'))
@@ -296,15 +317,20 @@ def ids_resources():
 
 @app.route('/ids/resources/add', methods=['POST'])
 def ids_add_resource():
-    db.session.add(Resource(name=request.form['name'],
-                            description=request.form.get('description')))
+    name = request.form['name'].strip()
+    if Resource.query.filter_by(name=name).first():
+        flash(f"La ressource '{name}' existe déjà.", 'warning')
+        return redirect(url_for('ids_resources'))
+    db.session.add(Resource(name=name, description=request.form.get('description')))
     db.session.commit()
     flash('Ressource ajoutée.', 'success')
     return redirect(url_for('ids_resources'))
 
 @app.route('/ids/resources/delete/<int:resource_id>')
 def ids_delete_resource(resource_id):
-    db.session.delete(Resource.query.get_or_404(resource_id))
+    res = Resource.query.get_or_404(resource_id)
+    AccessPolicy.query.filter_by(resource_id=res.id).delete()
+    db.session.delete(res)
     db.session.commit()
     flash('Ressource supprimée.', 'info')
     return redirect(url_for('ids_resources'))
@@ -331,6 +357,76 @@ def ids_dashboard():
     return render_template('ids_dashboard.html',
         stats=stats, m1=m1.status, m2=m2.status,
         m3=m3.status, m4=m4.status)
+
+@app.route('/ids/run', methods=['POST'])
+def ids_run():
+    from modules import module3_policy as m3
+    from modules.module2_analyzer import _check_event
+
+    try:
+        N = max(1, int(request.form.get('N', 100)))
+        P = max(1, int(request.form.get('P', 5)))
+        M = max(1, int(request.form.get('M', 1000)))
+        K = max(1, int(request.form.get('K', 100)))
+    except ValueError:
+        flash('Paramètres invalides.', 'danger')
+        return redirect(url_for('ids_dashboard'))
+
+    policies = m3._load_policy_direct(app)[:K]
+    if not policies:
+        flash('Aucune politique active. Importez policy.conf ou ajoutez des règles.', 'warning')
+        return redirect(url_for('ids_policy'))
+
+    files = EventFile.query.order_by(EventFile.file_number.desc()).limit(P).all()
+    if not files:
+        flash("Aucun fichier d'événements. Créez des fichiers d'abord.", 'warning')
+        return redirect(url_for('ids_files'))
+
+    intrusions_found = 0
+    entries_checked  = 0
+    table_size       = Intrusion.query.count()
+
+    for f in files:
+        entries = EventEntry.query.filter_by(file_id=f.id).limit(N).all()
+        for entry in entries:
+            entries_checked += 1
+            if table_size >= M:
+                db.session.commit()
+                flash(f'Limite M={M} atteinte — {intrusions_found} nouvelle(s) intrusion(s) sur {entries_checked} entrées.', 'warning')
+                return redirect(url_for('ids_intrusions'))
+
+            prev = Intrusion.query.filter_by(entry_id=entry.id).first()
+            if prev:
+                db.session.delete(prev)
+                db.session.flush()
+
+            event_dict = {
+                'username':       entry.username,
+                'resource':       entry.resource_name,
+                'task':           entry.task,
+                'execution_date': entry.execution_date.isoformat(),
+                'source':         f'batch/{f.name}',
+                'raw':            f'Analyse batch: {f.name}',
+            }
+            violation = _check_event(event_dict, policies)
+            if violation:
+                intr = Intrusion(entry_id=entry.id, violation_type=violation['message'])
+                db.session.add(intr)
+                db.session.flush()
+                db.session.add(Alert(
+                    message=(f"[IDS] {entry.username} | {entry.task} sur "
+                             f"{entry.resource_name} | {violation['message']}"),
+                    severity=violation['severity'],
+                ))
+                intrusions_found += 1
+                table_size += 1
+        f.analyzed = True
+
+    db.session.commit()
+    msg = (f'Analyse terminée : {intrusions_found} intrusion(s) détectée(s) '
+           f'sur {entries_checked} entrées ({len(files)} fichier(s))')
+    flash(msg, 'danger' if intrusions_found > 0 else 'success')
+    return redirect(url_for('ids_intrusions'))
 
 @app.route('/ids/files')
 def ids_files():
@@ -508,7 +604,9 @@ def ids_monitoring():
     return render_template('ids_monitoring.html',
         m1=m1.status, m2=m2.status, m3=m3.status, m4=m4.status,
         sniffer=m1.sniffer_status,
+        nids=m1.nids_status,
         logwatcher=m1.logwatcher_status,
+        auditd=m1.auditd_status,
         recent_intrusions=recent,
         events_dir=EVENTS_DIR, alerts_dir=ALERTS_DIR)
 
@@ -672,6 +770,67 @@ def ids_run_scenario():
         return redirect(url_for('ids_intrusions'))
 
     return redirect(url_for('ids_scenario'))
+
+
+# ══════════════════════════════════════════════════════════════════
+# PARAMÈTRES — Configuration SMTP et intégrité
+# ══════════════════════════════════════════════════════════════════
+
+@app.route('/ids/settings', methods=['GET', 'POST'])
+def ids_settings():
+    import json as _json
+    config_file = os.path.join(BASE_DIR, 'ids_config.json')
+    integrity_file = os.path.join(BASE_DIR, 'ids_integrity.conf')
+
+    cfg = {'smtp': {'host': '', 'port': 587, 'user': '', 'password': '',
+                    'from': '', 'to': '', 'tls': True}}
+    if os.path.exists(config_file):
+        try:
+            with open(config_file) as f:
+                cfg = _json.load(f)
+        except Exception:
+            pass
+
+    integrity_paths = ''
+    if os.path.exists(integrity_file):
+        with open(integrity_file, encoding='utf-8') as f:
+            integrity_paths = f.read()
+
+    if request.method == 'POST':
+        action = request.form.get('action')
+
+        if action == 'smtp':
+            smtp = {
+                'host':     request.form.get('smtp_host', ''),
+                'port':     int(request.form.get('smtp_port', 587)),
+                'user':     request.form.get('smtp_user', ''),
+                'password': request.form.get('smtp_password', ''),
+                'from':     request.form.get('smtp_from', ''),
+                'to':       request.form.get('smtp_to', ''),
+                'tls':      request.form.get('smtp_tls') == 'on',
+            }
+            with open(config_file, 'w') as f:
+                _json.dump({'smtp': smtp}, f, indent=2)
+            # Reload SMTP config in Module 4
+            from modules import module4_alerter as m4
+            m4.status  # trigger import; reload config on next alert
+            flash('Configuration SMTP sauvegardée.', 'success')
+
+        elif action == 'integrity':
+            paths = request.form.get('integrity_paths', '')
+            with open(integrity_file, 'w', encoding='utf-8') as f:
+                f.write('# Fichiers surveillés — un chemin par ligne\n')
+                f.write(paths.strip() + '\n')
+            flash('Fichiers surveillés sauvegardés. Redémarrez le collecteur pour appliquer.', 'success')
+
+        return redirect(url_for('ids_settings'))
+
+    smtp = cfg.get('smtp', {})
+    return render_template('ids_settings.html',
+        smtp=smtp,
+        integrity_paths=integrity_paths,
+        config_file=config_file,
+        integrity_file=integrity_file)
 
 
 # ══════════════════════════════════════════════════════════════════
