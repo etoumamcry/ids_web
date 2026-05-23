@@ -1,0 +1,11 @@
+{
+  "smtp": {
+    "host": "smtp.ionos.de",
+    "port": 587,
+    "user": "rmt.noreply@kaeyros-analytics.de",
+    "password": "kA?e{_j6?CGhRMT",
+    "from": "rmt.noreply@kaeyros-analytics.de",
+    "to": "expert237237@gmail.com",
+    "tls": true
+  }
+}
